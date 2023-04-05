@@ -1,10 +1,11 @@
-import { React, useEffect, useState } from 'react';
+import { React, useState } from 'react';
 import './CreditTerms.css'
 import { CreditApiService } from '../Services/CreditApiService'
 import CreditTermsDto from '../Models/CreditTermsDto';
 import { useNavigate } from "react-router-dom";
 
 const CreditTerms = () => {
+    const className = 'CreditTerms_';
     const navigate = useNavigate();
     const [showCalculateBtn, setShowCalculateBtn] = useState(true);
     const [sumOfCredit, setSumOfCredit] = useState('100000');
@@ -27,7 +28,7 @@ const CreditTerms = () => {
                 setInterestRateOfYear(e.target.value);
                 break;
             default:
-                console.log('Property name is undefined');
+                console.log(className + setValue.name + ' property name is undefined');
                 break;
         }
     }
@@ -40,15 +41,12 @@ const CreditTerms = () => {
         const creditTerms = new CreditTermsDto(sumOfCredit, creditTerm, interestRateOfYear);
         const result = await creditApiService.getCreditDetails(creditTerms);
         if (result.data) {
-            console.log(result.data);
             navigate('/creditDetails', { state: result.data });
         }
         else if (result.error) {
-            console.log(result.error);
             alert(result.error.errorCode + ' ' + result.error.message);
         }
         else {
-            console.log(result);
             alert(result);
         }
     }
