@@ -1,0 +1,27 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+    margin: 0 0 3vh 0;
+}
+
+td {
+    border: 1px solid white;
+}
+
+th {
+    border: 1px solid white;
+    background-color: #282c34;
+}
+
+.schedule-headers {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 0;
+}
+
+.show-payments-schedule {
+    min-width: 10vh;
+    font-size: calc(2vmin);
+    margin: 0 0 3vh 0;
+}

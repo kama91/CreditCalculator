@@ -1,0 +1,38 @@
+name: credit client
+
+on:
+  push:
+    branches: [ main ]
+    paths: 
+      - 'credit-client/**'
+      - '!credit-client/**/README.md'
+      - '!credit-client/**/public/**'
+  pull_request:
+    branches: [ main ]
+    paths: 
+     - 'credit-client/**'
+     - '!credit-client/**/README.md'
+     - '!credit-client/**/public/**'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    defaults:
+       run:
+         working-directory: ./credit-client
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v2
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+        cache-dependency-path: '**/package-lock.json'
+    - run: npm ci
+    - run: npm run build --if-present

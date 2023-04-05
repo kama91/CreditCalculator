@@ -1,0 +1,35 @@
+.credit-terms {
+    text-align: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.calculate {
+    min-width: 10vh;
+    font-size: calc(2vmin);
+}
+
+.flex-container {
+    margin-bottom: 3vh;
+}
+
+input:invalid {
+    animation: shake .3s;
+}
+
+@keyframes shake {
+    25% {
+        transform: translateX(4px);
+    }
+
+    50% {
+        transform: translateX(-4px);
+    }
+
+    75% {
+        transform: translateX(4px);
+    }
+}
