@@ -1,3 +1,3 @@
-# Build credit server
-* Build client __npm i__
-* Start client __npm start__
+# Build and start credit server
+* Build server __npm i__
+* Start server __npm start__
