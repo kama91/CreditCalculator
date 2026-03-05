@@ -1,35 +1,86 @@
 .credit-terms {
-    text-align: center;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .calculate {
-    min-width: 10vh;
-    font-size: calc(2vmin);
+  min-width: 220px;
+}
+
+.calculate:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .flex-container {
-    margin-bottom: 3vh;
+  margin-bottom: 3vh;
+}
+
+.form-fields {
+  width: min(380px, 90vw);
+}
+
+input,
+select {
+  color: #111;
+  background-color: #fff;
+  caret-color: #111;
+  border: 1px solid #a1a7b3;
+  border-radius: 8px;
+  padding: 0.55rem 0.75rem;
+  font-size: 1.15rem;
+}
+
+input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input-with-unit {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.65rem;
+  align-items: center;
+}
+
+.input-with-unit select {
+  min-width: 120px;
+}
+
+.action-button {
+  min-height: 50px;
+  padding: 0.6rem 1.4rem;
+  border-radius: 10px;
+  border: 1px solid #9ca3af;
+  background-color: #f8fafc;
+  color: #111827;
+  font-size: 1.25rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.action-button:hover:not(:disabled) {
+  background-color: #e5e7eb;
 }
 
 input:invalid {
-    animation: shake .3s;
+  animation: shake 0.3s;
 }
 
 @keyframes shake {
-    25% {
-        transform: translateX(4px);
-    }
+  25% {
+    transform: translateX(4px);
+  }
 
-    50% {
-        transform: translateX(-4px);
-    }
+  50% {
+    transform: translateX(-4px);
+  }
 
-    75% {
-        transform: translateX(4px);
-    }
+  75% {
+    transform: translateX(4px);
+  }
 }

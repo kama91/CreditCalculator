@@ -2,10 +2,11 @@ import CreditTerms from './Models/CreditTerms';
 import CreditDetails from './Models/CreditDetails';
 import PaymentsSchedule from './Models/PaymentsSchedule';
 import { format } from 'date-fns';
+import { addDays, addMonths } from 'date-fns';
 
 class CreditCalculator {
     public getCreditSchedule = (creditTerms: CreditTerms) => {
-        const paymentFactor = creditTerms.interestRateOfYear / 100 / 12;
+        const paymentFactor = this.getPaymentFactor(creditTerms);
         const amountPayment = this.GetAmountPayment(creditTerms, paymentFactor);
         const paymentsSchedule: PaymentsSchedule[] = [];
         let date = new Date();
@@ -17,13 +18,13 @@ class CreditCalculator {
             paymentsSchedule[j] = new PaymentsSchedule(
                 {
                     paymentNumber: j + 1,
-                    paymentDate: format(date, 'dd/MM/yyyy'),
+                    paymentDate: format(date, 'dd.MM.yyyy'),
                     paymentBody: parseFloat(paymentBody.toFixed(2)),
                     paymentPercent: parseFloat(paymentPercent.toFixed(2)),
                     balanceDebt: Math.abs(parseFloat(balanceDebt.toFixed(2)))
                 });
 
-            date = new Date(date.setMonth(date.getMonth() + 1));
+            date = this.getNextPaymentDate(date, creditTerms);
         }
 
         const overPayment = this.GetOverPayment(creditTerms, amountPayment);
@@ -31,6 +32,22 @@ class CreditCalculator {
         const monthlyPayment = parseFloat((amountPayment - creditTerms.sumOfCredit * paymentFactor).toFixed(2));
 
         return new CreditDetails({ monthlyPayment, overPayment, totalPayout, paymentsSchedule: paymentsSchedule });
+    }
+
+    private getPaymentFactor(creditTerms: CreditTerms) {
+        const yearlyRate = creditTerms.interestRateOfYear / 100;
+        const dailyRate = creditTerms.interestRateUnit === 'day' ? yearlyRate : yearlyRate / 365;
+        const periodInDays = creditTerms.creditTermUnit === 'days' ? 1 : 365 / 12;
+
+        return dailyRate * periodInDays;
+    }
+
+    private getNextPaymentDate(currentDate: Date, creditTerms: CreditTerms): Date {
+        if (creditTerms.creditTermUnit === 'days') {
+            return addDays(currentDate, 1);
+        }
+
+        return addMonths(currentDate, 1);
     }
 
     private GetAmountPayment(creditConditions: CreditTerms, paymentFactor: number) {

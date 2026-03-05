@@ -1,9 +1,47 @@
 .App {
   text-align: center;
-  background-color: #282c34;
+  background-color: var(--app-bg, #282c34);
+  font-family: var(--app-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif);
   min-height: 100vh;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   font-size: calc(5px + 2vmin);
   color: white;
+}
+
+.theme-toolbar {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.theme-toolbar label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.theme-toolbar input[type='color'] {
+  width: 2.2rem;
+  height: 2rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 0;
+  background: #fff;
+}
+
+.theme-toolbar select {
+  min-width: 150px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  padding: 0.3rem 0.5rem;
+}
+
+.page-content {
+  flex: 1;
 }

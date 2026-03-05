@@ -1,8 +1,14 @@
-import Router from 'express';
+import { FastifyPluginAsync } from 'fastify';
 import CreditController from './CreditController';
 
-const creditRouter = Router();
+const controller = new CreditController();
 
-creditRouter.get('/detail', new CreditController().getCreditPayments);
+const creditRouter: FastifyPluginAsync = async (fastify) => {
+    fastify.get('/detail', async (request, reply) => {
+        const query = request.query as Record<string, string | string[] | undefined>;
+        const result = controller.getCreditPayments(query);
+        return reply.code(result.statusCode).send(result.payload);
+    });
+};
 
 export default creditRouter;
